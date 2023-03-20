@@ -4,7 +4,7 @@ import pytest
 import time
 
 
-BUCKET_NAME = "data-police-uk-hastings"
+BUCKET_NAME = "data-police-uk"
 LATEST_DATE = "2023-01"
 WORKING_DIR = os.getcwd()
 
