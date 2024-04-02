@@ -13,7 +13,7 @@ As the project requirements prefer the use of Snowflake to store the data, I cre
 Then we can query the Cloud Storage data from our Snowflake warehouse and merge it into a table.
 
 <p align="center">
-  <img src="images/hastings_direct_pipeline.png" width="600"">
+  <img src="images/crime_data_uk_pipeline.png" width="600">
 </p>
 
 <p align="center">
@@ -25,3 +25,11 @@ I used strings for all columns, except latitude and longitude which are numeric 
 
 ## Data Analysis
 I have assumed the LSOA code provides enough granularity to get an idea of the level of crime commmited at a street level. Another lookup table linking LSOA code to post code would also be useful. The queries shown in [this](sql/street_level_crime_analysis.sql) SQL file shows the logic to summarise the monthly crime data by type at a street level.
+
+
+## Run from command line
+Publish Pub/Sub message to invoke Cloud Function: `gcloud pubsub topics publish run-cloud-fun-topic --message='{"months": ["2022-12", "2022-10", "2022-07"], "data_sets": ["street", "stop-and-search"]}'`
+
+Check Cloud Function logs: `gcloud beta functions logs read batch-load-crime-data-fn --gen2`
+
+Run tests: `python -m pytest tests/test_local_unit_tests.py`
